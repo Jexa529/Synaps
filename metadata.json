@@ -1,0 +1,6 @@
+{
+  "name": "Synaps - Discord Bot",
+  "description": "Transform how you run your Discord server with Synaps. Modern moderation, music, ticketing, and community features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

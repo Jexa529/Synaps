@@ -1,0 +1,280 @@
+export type Language =
+  | 'tr'
+  | 'en'
+  | 'de'
+  | 'fr'
+  | 'es'
+  | 'it'
+  | 'ar'
+  | 'ko'
+  | 'ja'
+  | 'ru'
+  | 'pt'
+  | 'nl';
+
+export interface LanguageOption {
+  code: Language;
+  name: string;
+  nativeName: string;
+  flag: string;
+  dir?: 'ltr' | 'rtl';
+}
+
+export interface FaqItemTrans {
+  category: string;
+  question: string;
+  answer: string;
+  commandTip?: string;
+}
+
+export interface Translations {
+  nav: {
+    home: string;
+    about: string;
+    features: string;
+    commands: string;
+    support: string;
+  };
+  hero: {
+    badge: string;
+    headlinePart1: string;
+    headlineHighlight: string;
+    headlinePart2: string;
+    subtitle: string;
+    addToDiscord: string;
+    exploreCommands: string;
+    highlights: {
+      ping: string;
+      antiRaid: string;
+      free: string;
+    };
+    capabilitiesTitle: string;
+    capabilitiesSubtitle: string;
+    modTitle: string;
+    modDesc: string;
+    ecoTitle: string;
+    ecoDesc: string;
+    ticketTitle: string;
+    ticketDesc: string;
+    jobTitle: string;
+    jobDesc: string;
+    faqTitle: string;
+    faqSubtitle: string;
+    cards: {
+      liveSanctionTitle: string;
+      subSecondTimeout: string;
+      threatLabel: string;
+      threatVal: string;
+      sanctionLabel: string;
+      sanctionVal: string;
+      recordLabel: string;
+      recordVal: string;
+      modBullet1: string;
+      modBullet2: string;
+      vaultTitle: string;
+      interestLabel: string;
+      walletLabel: string;
+      vaultLabel: string;
+      activeStreakLabel: string;
+      daysLabel: string;
+      ecoBullet1: string;
+      ecoBullet2: string;
+      ticketHeader: string;
+      urgentPriority: string;
+      assignedStaff: string;
+      transcriptsSaved: string;
+      ticketBullet1: string;
+      ticketBullet2: string;
+      careerHeader: string;
+      seniorArtisan: string;
+      wageLabel: string;
+      careerBullet1: string;
+      careerBullet2: string;
+    };
+    faqs: FaqItemTrans[];
+  };
+  footer: {
+    menu: string;
+    community: string;
+    resources: string;
+    legal: string;
+    support: string;
+    supportServer: string;
+    rights: string;
+    topGg: string;
+    devTeam: string;
+    feedback: string;
+    staffApply: string;
+    botInvite: string;
+    quickstart: string;
+    shardStatus: string;
+    newsletter: string;
+    tos: string;
+    privacyPolicy: string;
+    acceptableUse: string;
+    aiModeration: string;
+    discordTos: string;
+    cookiePolicy: string;
+    cookieSettings: string;
+    helpDesk: string;
+    reportIssue: string;
+    officialGuild: string;
+    botPermissions: string;
+    modals: {
+      devTeamTitle: string;
+      devTeamSub: string;
+      devTeamRole: string;
+      devTeamDesc: string;
+      connectSupport: string;
+      close: string;
+      quickstartTitle: string;
+      quickstartSub: string;
+      step1Title: string;
+      step1Desc: string;
+      step2Title: string;
+      step2Desc: string;
+      step3Title: string;
+      step3Desc: string;
+      addSynapsNow: string;
+      shardTitle: string;
+      shardSub: string;
+      healthy: string;
+      operational: string;
+      permissionsTitle: string;
+      permissionsSub: string;
+      perm1Title: string;
+      perm1Desc: string;
+      perm2Title: string;
+      perm2Desc: string;
+      perm3Title: string;
+      perm3Desc: string;
+      feedbackTitle: string;
+      feedbackSub: string;
+      feedbackDesc: string;
+      submitDiscord: string;
+      staffApplyTitle: string;
+      staffApplySub: string;
+      staffReqTitle: string;
+      staffReq1: string;
+      staffReq2: string;
+      staffReq3: string;
+      joinToApply: string;
+      newsletterTitle: string;
+      newsletterSub: string;
+      newsletterSuccess: string;
+      newsletterPlaceholder: string;
+      subscribe: string;
+    };
+  };
+  navbar: {
+    selectLanguage: string;
+    themeToggle: string;
+    lightMode: string;
+    darkMode: string;
+    megaMenu: {
+      commandsTitle: string;
+      aboutTitle: string;
+      featuresTitle: string;
+      prefixEngine: string;
+      instantResponses: string;
+      prefixSub: string;
+      unifiedArch: string;
+      oneBotRep: string;
+      unifiedSub: string;
+      founderSpotlight: string;
+      independentEng: string;
+      founderSub: string;
+      exploreCommands: string;
+      exploreFeatures: string;
+      readFounderStory: string;
+      allAboutCommands: string;
+      allAboutFeatures: string;
+      allAboutUs: string;
+    };
+  };
+  common: {
+    copy: string;
+    copied: string;
+    close: string;
+  };
+  commandsPage: {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    showing: string;
+    verifiedCommands: string;
+    allCommands: string;
+    categories: {
+      all: string;
+      economy: string;
+      profession: string;
+      gambling: string;
+      market: string;
+      utility: string;
+      moderation: string;
+      user: string;
+    };
+    usage: string;
+    cooldown: string;
+    requiredPermission: string;
+    copy: string;
+    copied: string;
+    noResults: string;
+    noResultsDesc: string;
+    descriptions?: Record<string, string>;
+  };
+  featuresPage: {
+    title: string;
+    subtitle: string;
+    tabs: {
+      moderation: string;
+      economy: string;
+      tickets: string;
+      jobs: string;
+      market: string;
+    };
+    walletLabel: string;
+    vaultLabel: string;
+    claimDaily: string;
+    claimed: string;
+    depositAll: string;
+    withdraw: string;
+    ticketLifecycle: string;
+    careerTiersTitle: string;
+    marketTitle: string;
+    buy: string;
+    purchased: string;
+  };
+  aboutPage: {
+    title: string;
+    subtitle: string;
+    storyTitle: string;
+    storyP1: string;
+    storyP2: string;
+    highlight1Title: string;
+    highlight1Desc: string;
+    highlight2Title: string;
+    highlight2Desc: string;
+    highlight3Title: string;
+    highlight3Desc: string;
+    valuesTitle: string;
+    valuesSubtitle: string;
+    val1Title: string;
+    val1Desc: string;
+    val2Title: string;
+    val2Desc: string;
+    val3Title: string;
+    val3Desc: string;
+    val4Title: string;
+    val4Desc: string;
+    founderTitle: string;
+    founderRole: string;
+    founderBio: string;
+    tabs: {
+      security: string;
+      economy: string;
+      support: string;
+      progression: string;
+    };
+  };
+}

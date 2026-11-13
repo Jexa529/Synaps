@@ -1,0 +1,1005 @@
+# SYNAPS DISCORD BOT — COMPLETE REWORK & SERVER CONFIGURATION SPECIFICATION
+
+You are working on the existing Synaps Discord bot project. Your task is to implement the complete command-system replacement, Help Center, Terms of Use, server panels, logging system, and channel improvements specified below.
+
+This is a direct modification task. Inspect the existing repository, make the changes in the actual code, and test the result. Do not merely provide examples or pseudocode.
+
+Follow every requirement. If two requirements conflict, prioritize preserving existing data, permissions, protected visual features, and working functionality.
+
+# 1. CRITICAL PROJECT PROTECTION RULES
+
+Before modifying the project, inspect its structure, command handlers, event listeners, database models, configuration, image-generation code, and existing Discord server integrations.
+
+## Replace the Old Command System
+
+- Remove all obsolete commands that are being replaced by the new command system below.
+- Remove all slash commands and slash-command registration.
+- The bot must use prefix commands only, with the prefix `s!`.
+- Remove duplicate, obsolete, and conflicting command handlers.
+- Implement all commands listed in this specification.
+- Preserve unrelated features and systems that are not being replaced.
+- Do not reset, delete, or migrate user data unnecessarily.
+- Reuse existing database tables, configuration, and dependencies wherever appropriate.
+
+## Absolutely Do Not Break These Existing Systems
+
+### A. Level System
+
+Preserve the existing XP system, level calculations, level-up events, level-up images, image rendering, and `s!level` functionality.
+
+Do not replace the visual level-up card with plain text. Do not reset XP or levels.
+
+### B. Welcome and Leave Images
+
+Preserve the existing member join/leave event handlers, generated welcome/leave images, visual design, image assets, fonts, positioning, and configuration.
+
+Do not remove or replace the existing visual welcome/leave system.
+
+### C. Leaderboard Image
+
+The `s!leaderboard` command must retain its existing image-based leaderboard.
+
+Preserve the image-generation implementation, layout, assets, fonts, rendering dependencies, rankings, and data source.
+
+Never replace the leaderboard image with a plain text list or ordinary embed.
+
+### D. Profile Image
+
+Preserve the existing visual profile system.
+
+- Keep its image-generation logic, design, assets, fonts, colors, layout, and rendering dependencies.
+- Keep existing profile buttons, menus, and interactions working.
+- Implement `s!profil` by reusing the existing profile handler.
+- If the existing command is named `s!profile`, add `s!profil` as an alias where supported.
+- Do not create a conflicting second profile system.
+- Do not remove the profile image or replace it with a text-only profile.
+
+### E. Other Existing Image Features
+
+For every feature that already generates an image, preserve the complete feature and its behavior.
+
+If only the menu needs changing, modify the menu without removing the image. If only the image needs changing, do not remove the command or its interactions.
+
+Do not reset balances, inventories, profiles, levels, XP, blacklist records, suggestion records, or moderation data.
+
+# 2. GLOBAL DESIGN AND EMOJIS
+
+Use this design for the new Help Center and server panels unless an existing protected visual feature requires its current design.
+
+- Embed color: `#2ECC71`.
+- No thumbnails on new Help Center and information embeds.
+- English-language content.
+- Clean, compact, professional layouts.
+- Use the custom emojis below where specified.
+- Use `seperator` as the separator placeholder in the supplied panel layouts.
+- Do not invent URLs, commands, features, version numbers, or release notes.
+
+Custom emojis:
+
+- Synaps logo: `<:white_synaps:1561343961925427280>`
+- Arrow: `<:arrow_right:1561771952333529198>`
+- Info: `<:info:1557370921377992754>`
+- Back: `<:back:1557413522923593818>`
+
+# 3. COMPLETE PREFIX COMMAND LIST
+
+All commands must use the `s!` prefix. Do not create slash commands.
+
+Use the actual registered command names found in the repository if they differ from the names below. Do not invent nonexistent functionality or remove existing commands that are not being replaced.
+
+## Economy
+
+- `s!balance` — Check your current balance.
+- `s!bank` — View and manage your bank.
+- `s!daily` — Claim your daily reward.
+- `s!leaderboard` — View the visual economy leaderboard.
+- `s!pray` — Pray for a possible reward.
+- `s!transfer` — Transfer money to another user.
+
+## Profession
+
+- `s!professions` — View available professions.
+- `s!myjob` — Check your current job.
+- `s!work` — Work to earn money.
+- `s!beg` — Beg for money.
+
+## Gambling
+
+- `s!coinflip` — Play a coin-flipping game.
+- `s!dice` — Roll the dice.
+- `s!fastclick` — Test your clicking speed.
+- `s!guessnumber` — Try to guess the number.
+- `s!roulette` — Play roulette.
+
+## Market
+
+- `s!background` — Manage your background.
+- `s!market` — Browse available items.
+- `s!buy` — Buy an item.
+- `s!sell` — Sell an item.
+- `s!use` — Use an item.
+- `s!inventory` — View your inventory.
+- `s!stockmarket` — Access the stock market.
+- `s!coins` — View coin-related information.
+
+## Utility
+
+- `s!help` — Open the Help Center.
+- `s!invite` — Get the bot invite link.
+- `s!level` — Check your level.
+- `s!language` — Change your language settings.
+- `s!ping` — Check the bot's response latency.
+- `s!stats` — View bot statistics.
+- `s!support` — Get support information.
+- `s!website` — Visit the official website.
+
+## Moderation
+
+- `s!ticket-settings` — Configure ticket settings.
+- `s!ticket-panel` — Set up the ticket panel.
+- `s!welcome-leave` — Configure welcome and leave messages.
+- `s!auto-role` — Configure automatic roles.
+- `s!protection` — Configure server protection.
+
+## User
+
+Add a new **User** category to the first Help Center select menu.
+
+- `s!profil` — View your personal profile.
+
+Inspect the project for other existing user-related commands and include them if they are real, functional commands. Do not invent commands.
+
+The `s!profil` command must use the existing visual profile system, not a new text-only implementation.
+
+# 4. HELP CENTER — MAIN EMBED
+
+Create a new Help Center opened by `s!help`.
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Help Center`
+
+Description:
+
+Welcome to Synaps! Select an option below to explore commands and features.
+
+seperator
+
+`<:info:1557370921377992754> **Command Categories**`
+
+`<:arrow_right:1561771952333529198> Economy — Money and transfers.`
+
+`<:arrow_right:1561771952333529198> Profession — Jobs and earnings.`
+
+`<:arrow_right:1561771952333529198> Gambling — Games and luck.`
+
+`<:arrow_right:1561771952333529198> Market — Items and trading.`
+
+`<:arrow_right:1561771952333529198> Utility — Useful tools and information.`
+
+`<:arrow_right:1561771952333529198> Moderation — Server settings.`
+
+`<:arrow_right:1561771952333529198> User — Personal profile and user features.`
+
+seperator
+
+`<:info:1557370921377992754> **More Information**`
+
+`<:arrow_right:1561771952333529198> New Features — Latest updates.`
+
+`<:arrow_right:1561771952333529198> User Guide — How to use Synaps.`
+
+`<:arrow_right:1561771952333529198> FAQ — Frequently asked questions.`
+
+seperator
+
+Use the `s!` prefix for all commands. Need help? Join our [Support Server](https://discord.gg/synap).
+
+## First Select Menu — Command Categories
+
+Include exactly these seven options in this order:
+
+1. Economy
+2. Profession
+3. Gambling
+4. Market
+5. Utility
+6. Moderation
+7. User
+
+## Second Select Menu — More Information
+
+Include exactly these three options in this order:
+
+1. New Features
+2. User Guide
+3. FAQ
+
+Both select menus must appear on the main Help Center message.
+
+When a user selects an option, immediately update the existing Help Center message to show the selected page. Do not add another intermediate select menu, confirmation menu, or unnecessary button.
+
+# 5. CATEGORY EMBEDS
+
+Every category must display the corresponding commands immediately when selected.
+
+Use the green embed design, no thumbnail, and compact English descriptions.
+
+## Economy
+
+Title: `<:white_synaps:1561343961925427280> Economy Commands`
+
+- `s!balance` — Check your current balance.
+- `s!bank` — View and manage your bank.
+- `s!daily` — Claim your daily reward.
+- `s!leaderboard` — View the economy leaderboard.
+- `s!pray` — Pray for a possible reward.
+- `s!transfer` — Transfer money to another user.
+
+## Profession
+
+Title: `<:white_synaps:1561343961925427280> Profession Commands`
+
+- `s!professions` — View available professions.
+- `s!myjob` — Check your current job.
+- `s!work` — Work to earn money.
+- `s!beg` — Beg for money.
+
+## Gambling
+
+Title: `<:white_synaps:1561343961925427280> Gambling Commands`
+
+- `s!coinflip` — Play a coin-flipping game.
+- `s!dice` — Roll the dice.
+- `s!fastclick` — Test your clicking speed.
+- `s!guessnumber` — Try to guess the number.
+- `s!roulette` — Play roulette.
+
+## Market
+
+Title: `<:white_synaps:1561343961925427280> Market Commands`
+
+- `s!background` — Manage your background.
+- `s!market` — Browse available items.
+- `s!buy` — Buy an item.
+- `s!sell` — Sell an item.
+- `s!use` — Use an item.
+- `s!inventory` — View your inventory.
+- `s!stockmarket` — Access the stock market.
+- `s!coins` — View coin-related information.
+
+## Utility
+
+Title: `<:white_synaps:1561343961925427280> Utility Commands`
+
+- `s!help` — Open the Help Center.
+- `s!invite` — Get the bot invite link.
+- `s!level` — Check your level.
+- `s!language` — Change your language settings.
+- `s!ping` — Check the bot's response latency.
+- `s!stats` — View bot statistics.
+- `s!support` — Get support information.
+- `s!website` — Visit the official website.
+
+## Moderation
+
+Title: `<:white_synaps:1561343961925427280> Moderation Commands`
+
+- `s!ticket-settings` — Configure ticket settings.
+- `s!ticket-panel` — Set up the ticket panel.
+- `s!welcome-leave` — Configure welcome and leave messages.
+- `s!auto-role` — Configure automatic roles.
+- `s!protection` — Configure server protection.
+
+## User
+
+Title: `<:white_synaps:1561343961925427280> User Commands`
+
+- `s!profil` — View your personal profile.
+
+The User category must reuse the existing profile image and interactions. Do not remove the profile's visual output.
+
+# 6. CATEGORY NAVIGATION — THREE BOTTOM BUTTONS
+
+**This is a mandatory design requirement. Do not remove, rename, or redesign these buttons.**
+
+Whenever a user selects any category or information page, the resulting embed must have the following footer area:
+
+First, add the separator:
+
+`seperator`
+
+Then display exactly three buttons, in this exact order.
+
+## Button 1 — Back
+
+- Emoji: `<:back:1557413522923593818>`
+- Label: EMPTY.
+- The button must show only the custom back emoji.
+- Do not set the label to `Back`, `Previous Page`, or any other text.
+- Clicking it must return to the main Help Center with both select menus visible.
+
+## Button 2 — Add Synaps
+
+- Emoji: `<:white_synaps:1561343961925427280>`
+- Label: `Add Synaps`
+- Open the actual configured bot invite URL.
+- Do not invent an invite URL.
+
+## Button 3 — Support Server
+
+- Emoji: `<:white_synaps:1561343961925427280>`
+- Label: `Support Server`
+- Open `https://discord.gg/synap`.
+
+### Exact Layout
+
+`seperator`
+
+`[Button 1: <:back:1557413522923593818> — NO LABEL] [Button 2: <:white_synaps:1561343961925427280> Add Synaps] [Button 3: <:white_synaps:1561343961925427280> Support Server]`
+
+The first button is the **only** one without a label.
+
+Apply these three buttons to every category and information page, including Economy, Profession, Gambling, Market, Utility, Moderation, User, New Features, User Guide, and FAQ.
+
+Keep them working and do not replace them with another component.
+
+# 7. INFORMATION PAGES
+
+## New Features
+
+Title: `<:white_synaps:1561343961925427280> Synaps — New Features`
+
+Description:
+
+Discover the latest additions, improvements, and changes to Synaps.
+
+seperator
+
+`<:info:1557370921377992754> **Latest Updates**`
+
+`<:arrow_right:1561771952333529198> New Features — Explore newly added content.`
+
+`<:arrow_right:1561771952333529198> Improvements — Discover system improvements.`
+
+`<:arrow_right:1561771952333529198> Bug Fixes — Learn about resolved issues.`
+
+seperator
+
+Use actual release information where available. Never fabricate updates.
+
+## User Guide
+
+Title: `<:white_synaps:1561343961925427280> Synaps — User Guide`
+
+Description:
+
+Learn how to use Synaps and get started.
+
+seperator
+
+`<:info:1557370921377992754> **Getting Started**`
+
+`<:arrow_right:1561771952333529198> Use s!help to explore commands.`
+
+`<:arrow_right:1561771952333529198> Select a category to view its commands.`
+
+`<:arrow_right:1561771952333529198> Use the s! prefix before every command.`
+
+seperator
+
+`<:info:1557370921377992754> **Main Features**`
+
+`<:arrow_right:1561771952333529198> Economy — Manage your money.`
+
+`<:arrow_right:1561771952333529198> Profession — Work and earn money.`
+
+`<:arrow_right:1561771952333529198> Gambling — Play available games.`
+
+`<:arrow_right:1561771952333529198> Market — Manage and trade items.`
+
+`<:arrow_right:1561771952333529198> Utility — Use helpful bot tools.`
+
+`<:arrow_right:1561771952333529198> Moderation — Manage server features.`
+
+`<:arrow_right:1561771952333529198> User — View your personal profile using s!profil.`
+
+seperator
+
+Need help? Use `s!support` or join our [Support Server](https://discord.gg/synap).
+
+## FAQ
+
+Title: `<:white_synaps:1561343961925427280> Synaps — FAQ`
+
+Description:
+
+seperator
+
+`<:info:1557370921377992754> **Frequently Asked Questions**`
+
+`<:arrow_right:1561771952333529198> **How do I use commands?**`
+
+Use the `s!` prefix before every command.
+
+`<:arrow_right:1561771952333529198> **How do I check my balance?**`
+
+Use `s!balance`.
+
+`<:arrow_right:1561771952333529198> **How do I earn money?**`
+
+Try `s!work`, `s!daily`, or `s!beg`.
+
+`<:arrow_right:1561771952333529198> **How do I view my profile?**`
+
+Use `s!profil`.
+
+`<:arrow_right:1561771952333529198> **Where can I find items?**`
+
+Use `s!market`.
+
+`<:arrow_right:1561771952333529198> **Where can I get help?**`
+
+Use `s!support` or join our [Support Server](https://discord.gg/synap).
+
+seperator
+
+Still have questions? Contact us through the support server.
+
+All three information pages must have the same three bottom navigation buttons.
+
+# 8. TERMS OF USE
+
+Implement persistent Terms of Use acceptance.
+
+- When a user attempts to use a command for the first time, check whether they have accepted the terms.
+- If they have not accepted, block the requested command and display the Terms of Use panel.
+- Provide an `Accept Rules` button.
+- Save acceptance in the existing database or persistent storage.
+- Once accepted, users must not be asked again after bot restarts.
+- Do not reset existing user data.
+- Allow the minimal interactions necessary to display and accept the terms.
+- Prevent unauthorized users from interacting with another user's acceptance button.
+- Handle interaction errors and expired components safely.
+
+## Terms Embed
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps Terms of Use`
+
+Description:
+
+To use Synaps commands, you must read and accept the following rules.
+
+seperator
+
+`<:info:1557370921377992754> **Terms & Rules**`
+
+`<:arrow_right:1561771952333529198> **1.** Trading items obtained within the bot is strictly prohibited.`
+
+`<:arrow_right:1561771952333529198> **2.** Exploiting bugs for personal benefit without reporting them to the developers is prohibited.`
+
+`<:arrow_right:1561771952333529198> **3.** Using external software or files to automate or artificially increase your progress in the bot is prohibited.`
+
+`<:arrow_right:1561771952333529198> **4.** Data obtained through the bot is not guaranteed to remain available in the future. The bot's purpose, functionality, and features may change at any time.`
+
+seperator
+
+`<:info:1557370921377992754> **Important Notice**`
+
+`<:arrow_right:1561771952333529198> Violations may result in a permanent blacklist or other appropriate penalties.`
+
+`<:arrow_right:1561771952333529198> For assistance, join our [Synaps Support Server](https://discord.gg/synap).`
+
+seperator
+
+By clicking **Accept Rules**, you confirm that you have read and agree to the Synaps Terms of Use.
+
+Button: `Accept Rules`
+
+# 9. AUTOMATED SERVER PANELS
+
+The bot must create or update the following panels in the exact target channels.
+
+## General Panel Rules
+
+- All new panel content must be in English.
+- Use `#2ECC71` for the embed color.
+- Use no thumbnails for newly created panels.
+- Inspect existing messages before making changes.
+- Replace outdated bot-generated panel messages in the specified target channels, as requested.
+- Do not bulk-delete unrelated user messages or historical information.
+- Reuse and edit existing panel messages where possible.
+- Store panel message IDs or another reliable identifier.
+- Avoid duplicate panels on restarts.
+- Reuse valid URLs and configuration from the existing project.
+- Do not invent URLs, release information, or functionality.
+- Do not modify unrelated channels.
+- Preserve existing permissions and working interactions.
+
+## A. Shortcuts Panel
+
+**Channel ID:** `1561185996169547787`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Quick Shortcuts`
+
+Description:
+
+Quick access to the most useful Synaps commands and links.
+
+seperator
+
+`<:arrow_right:1561771952333529198> **Help Center** — Use s!help to explore commands.`
+
+`<:arrow_right:1561771952333529198> **Profile** — Use s!profil to view your profile.`
+
+`<:arrow_right:1561771952333529198> **Level** — Use s!level to check your level.`
+
+`<:arrow_right:1561771952333529198> **Leaderboard** — Use s!leaderboard to view rankings.`
+
+`<:arrow_right:1561771952333529198> **Support** — https://discord.gg/synap`
+
+## B. Quick Start Panel
+
+**Channel ID:** `1557409793789137037`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Welcome to Synaps — Quick Start`
+
+Description:
+
+New to Synaps? Follow these steps to get started.
+
+seperator
+
+`<:arrow_right:1561771952333529198> **1. Read the Rules** — Familiarize yourself with the server rules.`
+
+`<:arrow_right:1561771952333529198> **2. Explore Synaps** — Use s!help to discover available commands.`
+
+`<:arrow_right:1561771952333529198> **3. View Your Profile** — Use s!profil to view your profile.`
+
+`<:arrow_right:1561771952333529198> **4. Start Earning** — Explore economy and profession commands.`
+
+`<:arrow_right:1561771952333529198> **5. Need Help?** — Visit https://discord.gg/synap.`
+
+## C. Welcome Panel
+
+**Channel ID:** `1557358375161823243`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Welcome to Synaps`
+
+Description:
+
+Welcome to our community! We're glad you're here.
+
+seperator
+
+`<:arrow_right:1561771952333529198> Read the server rules and respect all members.`
+
+`<:arrow_right:1561771952333529198> Check the Quick Start guide to get started.`
+
+`<:arrow_right:1561771952333529198> Explore the server channels and available features.`
+
+`<:arrow_right:1561771952333529198> Need assistance? Visit https://discord.gg/synap.`
+
+Do not replace or interfere with the existing automated welcome-image system.
+
+## D. S-S-S Panel
+
+**Channel ID:** `1557361390271070319`
+
+Inspect the channel's current content, topic, and implementation to determine the intended meaning of S-S-S.
+
+- Keep its existing purpose.
+- Replace outdated bot-generated panel content with a clean English-language panel consistent with that purpose.
+- Do not invent an unrelated system.
+- Do not delete unrelated messages or change the channel ID.
+
+## E. Rules Panel
+
+**Channel ID:** `1557360710965665814`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Server Rules`
+
+Description:
+
+Please follow these rules to keep Synaps welcoming and safe for everyone.
+
+seperator
+
+`<:arrow_right:1561771952333529198> **1. Respect Everyone** — Treat all members with respect. Harassment and personal attacks are not allowed.`
+
+`<:arrow_right:1561771952333529198> **2. No Spam** — Avoid spam, flooding, and disruptive messages.`
+
+`<:arrow_right:1561771952333529198> **3. No Exploits** — Do not abuse bugs, exploits, or unauthorized automation.`
+
+`<:arrow_right:1561771952333529198> **4. Follow Discord's Rules** — Comply with Discord's Terms of Service and Community Guidelines.`
+
+`<:arrow_right:1561771952333529198> **5. Follow Staff Instructions** — Respect moderator decisions and use appropriate channels for questions or appeals.`
+
+seperator
+
+Failure to follow the rules may result in moderation action.
+
+Preserve any important existing rules that are not covered by this template.
+
+## F. Role Menu
+
+**Channel ID:** `1561188722878447616`
+
+Improve the existing role menu. Do not discard or replace its working role system.
+
+- Preserve existing role IDs and valid self-assignable roles.
+- Preserve existing interactions and role assignment behavior.
+- Improve layout, organization, descriptions, and English-language presentation.
+- Ensure users can only self-assign authorized roles.
+- Never expose administrator or staff-only roles as self-assignable.
+- Preserve existing permissions and assignments.
+- Avoid duplicate role panels.
+
+## G. Links Panel
+
+**Channel ID:** `1557408925198979263`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Important Links`
+
+Description:
+
+Find all the important Synaps links in one place.
+
+seperator
+
+`<:arrow_right:1561771952333529198> **Support Server** — https://discord.gg/synap`
+
+Include the actual configured bot invite and official website URLs if available. Never invent URLs.
+
+## H. Status Panel
+
+**Channel ID:** `1561009804242190426`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — System Status`
+
+Description:
+
+Check the current operational status of Synaps.
+
+seperator
+
+Display actual status information when available:
+
+- Bot availability
+- Database connectivity
+- Command-system status
+- Last successful status update
+
+Use real runtime checks. Do not falsely report a system as operational. Update the existing panel rather than creating duplicates.
+
+## I. Changelogs Panel
+
+**Channel ID:** `1561009839180611727`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Changelogs`
+
+Description:
+
+Stay informed about new features, improvements, and fixes.
+
+seperator
+
+Use genuine release information from the actual project history or changelog data.
+
+- Show version and release date when available.
+- Separate new features, improvements, and bug fixes.
+- Do not fabricate releases or claim unfinished changes have been released.
+
+## J. Blacklist Panel
+
+**Channel ID:** `1563163348629979232`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Blacklist Information`
+
+Description:
+
+This panel provides information about Synaps blacklist enforcement and appeals.
+
+seperator
+
+`<:arrow_right:1561771952333529198> Blacklisting may apply to serious or repeated violations of Synaps rules.`
+
+`<:arrow_right:1561771952333529198> Attempts to exploit the bot or bypass restrictions may result in further action.`
+
+`<:arrow_right:1561771952333529198> If you believe a restriction was applied incorrectly, contact the support team at https://discord.gg/synap.`
+
+Preserve the actual blacklist enforcement system and its records. Do not expose private moderation information publicly.
+
+## K. Server Boost Panel
+
+**Channel ID:** `1557361841116553398`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Support Synaps with a Server Boost!`
+
+Description:
+
+Love the Synaps community? Give our server a boost and help us grow!
+
+seperator
+
+`<:arrow_right:1561771952333529198> Help support the community and make Synaps an even better place.`
+
+`<:arrow_right:1561771952333529198> Every boost is appreciated. Thank you for supporting us!`
+
+Use a valid existing server link if available. Do not invent a boost URL or promise unconfigured rewards.
+
+## L. Version Panel
+
+**Channel ID:** `1563163847681122374`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Version Information`
+
+Description:
+
+View the current Synaps version and release information.
+
+seperator
+
+Display the actual version from the project's version configuration or package metadata. Include the release date, release notes, and development status when available. Do not invent version information.
+
+## M. Suggestions Panel
+
+**Channel ID:** `1557408761763733524`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Suggestions`
+
+Description:
+
+Have an idea to improve Synaps or our community? We'd love to hear it!
+
+seperator
+
+Preserve the existing suggestion submission system, its buttons, review workflow, and stored records.
+
+- Keep the existing buttons in their current right-side arrangement where supported by the existing component layout.
+- Keep the buttons' normal appearance and intended actions.
+- Remove the redundant bottom text that says **"Submit your suggestion..."** or an equivalent submission prompt.
+- Do not remove the actual submission button.
+- Keep suggestions routed to their existing review destination.
+
+## N. Complaints / Reports Panel
+
+**Channel ID:** `1557362987109584936`
+
+Title:
+
+`<:white_synaps:1561343961925427280> Synaps — Reports & Complaints`
+
+Description:
+
+Have an issue or need to report a concern? Use the controls below to contact the appropriate team.
+
+seperator
+
+Preserve the existing complaint/report system and its buttons.
+
+- Keep the existing buttons in their current right-side arrangement where supported.
+- Keep their appearance normal and clean.
+- Remove the redundant bottom text that says **"Submit your complaint..."** or an equivalent submission prompt.
+- Do not remove the actual complaint submission button.
+- Preserve the private staff review destination and existing records.
+- Do not publish private complaint details in a public channel.
+
+# 10. LOG SYSTEM — EXACTLY NINE DEDICATED CHANNELS
+
+Reorganize the existing server logging system into exactly nine dedicated log channels.
+
+Before making changes, inspect the current log channels, channel IDs, event listeners, audit-log integrations, and existing routing.
+
+Reuse existing channels wherever possible. Rename or consolidate redundant logging channels only after their functionality has been migrated.
+
+Do not delete unrelated channels or historical messages.
+
+## Required Nine-Channel Structure
+
+1. **Message Logs** — Message edits and deletions, with before/after content when available and permitted.
+2. **Member Logs** — Member joins, leaves, nickname changes, and relevant member updates.
+3. **Moderation Logs** — Bans, unbans, kicks, timeouts, and moderation actions.
+4. **Role Logs** — Role creation, deletion, updates, and role assignment changes.
+5. **Channel Logs** — Channel creation, deletion, and configuration changes.
+6. **Voice Logs** — Voice joins, leaves, moves, and relevant voice-state changes.
+7. **Server Logs** — Server configuration and guild-level updates.
+8. **Message Filter Logs** — Automod actions, spam detection, and message-filter enforcement.
+9. **Command Logs** — Relevant administrative and moderation command usage, excluding secrets and sensitive arguments.
+
+## Correct Routing
+
+- Message edits and deletions go to Message Logs, not Moderation Logs.
+- Moderation Logs contain actual moderation actions.
+- Role changes go to Role Logs.
+- Channel changes go to Channel Logs.
+- Voice events go to Voice Logs.
+- Automod events go to Message Filter Logs.
+- Relevant administrative command usage goes to Command Logs.
+- Do not duplicate events through overlapping listeners.
+- Avoid logging the bot's own routine messages as user messages.
+- Respect Discord permissions and available audit-log data.
+- Do not log tokens, passwords, credentials, or unnecessary private information.
+
+## Bot Diagnostic Logs Must Be Separate
+
+Bot console output, stack traces, internal errors, and developer debugging output must not be sent into the nine dedicated server log channels.
+
+Keep internal diagnostic logging in the configured console or developer logging destination.
+
+The nine-channel limit applies to the dedicated server logging system, not ordinary server channels or the Developer category.
+
+After reorganization, verify that exactly nine dedicated server log channels remain and all listeners route to the correct destination.
+
+# 11. DEVELOPER CATEGORY AND BOT JOIN/LEAVE LOGS
+
+**Existing Developer category ID:** `1561009551204159558`
+
+Only reorganize this Developer category as specified below. Do not reorganize unrelated categories.
+
+## Developer Category Requirements
+
+- Inspect its existing channels and their purposes.
+- Improve channel names using clear, professional English and appropriate emoji prefixes.
+- Preserve channel purposes and existing functionality.
+- Preserve channel IDs by renaming existing channels wherever possible.
+- Do not delete useful developer tools, history, logs, webhooks, or integrations.
+- Do not change category or channel permissions unnecessarily.
+- Preserve intended staff access.
+- Avoid duplicate emoji prefixes and excessively long names.
+
+## Dedicated Join-Leave Channel
+
+Create a channel named:
+
+`📥・join-leave`
+
+Place it inside the existing Developer category.
+
+This channel records when the **bot itself** joins or leaves a Discord server.
+
+For each event, include:
+
+- Event type: joined or left.
+- Server name, when available.
+- Server ID.
+- Timestamp.
+
+Requirements:
+
+- Log only genuine bot guild join/leave events.
+- Do not send ordinary member join/leave events here.
+- Ordinary member events belong in Member Logs.
+- Do not expose credentials, tokens, or other secrets.
+- Reuse an existing suitable channel inside the Developer category if one already exists.
+- Keep the channel private to the intended developer/staff roles, following existing permission conventions.
+
+# 12. IMPLEMENTATION DETAILS AND SAFETY
+
+## Existing Channel Management
+
+Never blindly delete and recreate channels.
+
+For each target channel:
+
+1. Verify its ID and current purpose.
+2. Inspect current panel messages and active interactions.
+3. Identify the outdated bot-generated panels that need replacing.
+4. Update existing panel messages where possible.
+5. Delete only obsolete panel messages that are explicitly being replaced.
+6. Preserve unrelated conversations and historical records.
+7. Store panel message IDs to avoid duplicates.
+8. Reuse channel IDs and permissions.
+9. If permissions prevent an operation, report the issue rather than changing unrelated permissions.
+
+## Discord Interactions
+
+- Ensure select menus and buttons use the project's installed Discord library version.
+- Respect component limits and supported layouts.
+- Handle interaction acknowledgments and timeouts correctly.
+- Prevent unauthorized users from using another user's private acceptance interaction.
+- Handle expired or deleted panel messages gracefully.
+- Keep buttons and select menus functional after bot restarts.
+- Avoid duplicate event listeners and duplicate command registration.
+
+## Data and Permissions
+
+- Preserve all existing user data.
+- Preserve database schemas unless a safe, necessary migration is required.
+- If a migration is required, use a safe migration path and preserve existing records.
+- Do not weaken moderation permissions.
+- Do not expose staff-only actions through public menus.
+- Do not grant users privileged roles through the role menu.
+- Do not expose private reports, blacklist evidence, credentials, or sensitive log details publicly.
+
+# 13. FINAL TESTING CHECKLIST
+
+Before claiming completion, verify each of the following.
+
+### Commands
+
+- All specified prefix commands are functional.
+- Slash commands and slash-command registration have been removed.
+- No duplicate or obsolete command handlers remain.
+- The User category exists in the Help Center.
+- `s!profil` invokes the existing visual profile system.
+
+### Help Center
+
+- The main Help Center has exactly two select menus.
+- The first select menu contains seven categories, including User.
+- The second select menu contains New Features, User Guide, and FAQ.
+- Each selected page displays its content immediately.
+- Every category and information page has exactly three bottom buttons.
+- The first button shows only `<:back:1557413522923593818>` with no label.
+- The second button opens the real bot invite URL.
+- The third button opens `https://discord.gg/synap`.
+- The back button returns to the main Help Center with both select menus.
+
+### Protected Visual Features
+
+- The original leaderboard image still works and looks the same.
+- The original profile image still works and looks the same.
+- Level calculations and level-up images remain functional and unchanged.
+- Welcome and leave images remain functional and unchanged.
+- No protected feature has been replaced with a plain text embed.
+
+### Server Panels
+
+- Every specified target channel contains the appropriate English-language panel.
+- The role menu retains its original roles and working interactions.
+- Suggestion and complaint submissions still work.
+- Redundant bottom submission text has been removed without deleting the actual buttons.
+- Status, changelog, and version information are based on real project data.
+- Panels do not duplicate on restarts.
+- Existing unrelated messages and channel history remain intact.
+
+### Logging and Developer Category
+
+- Exactly nine dedicated server log channels remain.
+- Events route to the correct log categories.
+- Message edits and deletions go to Message Logs rather than Moderation Logs.
+- Internal bot diagnostic output is not sent to the nine server log channels.
+- The existing Developer category is preserved.
+- Developer channel naming is improved without breaking integrations or permissions.
+- The dedicated `📥・join-leave` channel logs actual bot guild joins and leaves.
+
+### Database and Security
+
+- Balances, inventories, profiles, levels, XP, and other user data remain intact.
+- Terms of Use acceptance persists after restarts.
+- Existing blacklist, moderation, suggestion, and complaint records are preserved.
+- No secrets or private user information are exposed.
+- No unnecessary permissions have been granted.
+
+# FINAL INSTRUCTION
+
+Implement the full specification directly in the existing Synaps project.
+
+Do not merely explain what needs to be done. Inspect the repository, implement the changes, and run the relevant tests.
+
+Replace the obsolete command system without deleting unrelated features. Preserve all protected images, data, permissions, and existing integrations. Update only the specified server panels and the designated Developer category. Do not invent functionality or claim success unless the work has actually been implemented and tested.
