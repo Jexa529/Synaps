@@ -192,7 +192,7 @@ export const tr: Translations = {
       featuresTitle: 'ÖZELLİKLER',
       prefixEngine: 'SYNAPS ÖNEK MOTORU',
       instantResponses: 'Sohbetin yanında, anında yanıtlar.',
-      prefixSub: 'Slash gecikmesi olmadan saliselik yanıt. 1.200+ sunucuda aktif.',
+      prefixSub: 'Slash gecikmesi olmadan saliselik yanıt.',
       unifiedArch: 'BİRLEŞİK MİMARİ',
       oneBotRep: 'Beş bot yerine tek bir bot.',
       unifiedSub: 'Moderasyon, ekonomi, destek biletleri ve seviye tek botta senkronize.',

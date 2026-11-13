@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import {
-  ShieldCheck,
-  Coins,
-  Ticket,
-  Zap,
-  CheckCircle2,
-  Copy,
-  Check,
-} from 'lucide-react';
+  ShieldCheckIcon,
+  CoinsIcon,
+  TicketIcon,
+  ZapIcon,
+  CheckCircleIcon,
+  CopyIcon,
+  CheckIcon,
+} from './ui/Icons';
 import { useLanguage } from '../i18n/translations';
+import { uiExtras } from '../i18n/extras';
 
 type SuiteTabId = 'security' | 'economy' | 'support' | 'progression';
 
@@ -21,7 +23,6 @@ interface SuiteTab {
   id: SuiteTabId;
   label: string;
   icon: React.ReactNode;
-  tagline: string;
   title: string;
   description: string;
   metrics: { label: string; value: string }[];
@@ -36,7 +37,10 @@ interface SuiteTab {
 }
 
 export const AboutUs: React.FC = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const ex = uiExtras[language] || uiExtras.tr;
+  const ab = ex.about;
+
   const [activeTab, setActiveTab] = useState<SuiteTabId>('security');
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
 
@@ -52,307 +56,258 @@ export const AboutUs: React.FC = () => {
     {
       id: 'security',
       label: t.aboutPage.tabs.security,
-      icon: <ShieldCheck className="w-4 h-4" />,
-      tagline: '',
-      title: 'Automated Community Protection',
-      description:
-        'Continuous deep inspection against malicious token-grabbers, deceptive phishing mirrors, and mass mention floods. Protects staff focus with sub-second automated timeouts and persistent audit logging.',
-      metrics: [
-        { label: 'Gateway Latency', value: '< 15ms' },
-        { label: 'Threat Purge', value: 'Instant' },
-        { label: 'Strike Tracking', value: 'Persistent' },
-        { label: 'False Positives', value: 'Zero Heuristic' },
-      ],
-      commands: [
-        { command: 's!protection', description: 'Inspect or configure automated raid isolation shields.' },
-        { command: 's!warn @user [reason]', description: 'Issue a formal infraction and log audit strike.' },
-        { command: 's!timeout @user [duration]', description: 'Isolate an offender from all text channels.' },
-        { command: 's!purge [amount]', description: 'Bulk remove spam floods from channel history.' },
-      ],
+      icon: <ShieldCheckIcon className="w-4 h-4" />,
+      title: ab.tabs.security.title,
+      description: ab.tabs.security.description,
+      metrics: ab.tabs.security.metrics,
+      commands: ab.tabs.security.commands,
       embedPreview: {
         commandTyped: 's!protection',
-        embedTitle: 'Automated Audit Shield · Active',
-        embedSubtitle: 'Guild Heuristic Inspection Module',
-        fields: [
-          { label: 'Phishing Filter', value: 'Active (2,400+ domains quarantined)' },
-          { label: 'Anti-Mass Ping', value: 'Active (Auto-timeout at 5+ mentions)' },
-          { label: 'Raid Burst Isolation', value: 'Active (Sub-second join throttle)' },
-        ],
-        footer: 'Synaps Security Engine · Incident ID #SEC-9402',
+        embedTitle: ab.tabs.security.embedTitle,
+        embedSubtitle: ab.tabs.security.embedSubtitle,
+        fields: ab.tabs.security.fields,
+        footer: ab.tabs.security.footer,
       },
     },
     {
       id: 'economy',
       label: t.aboutPage.tabs.economy,
-      icon: <Coins className="w-4 h-4" />,
-      tagline: 'Compounding Banking & Work Shifts',
-      title: 'Interactive Economy & Daily Streaks',
-      description:
-        'Fuel daily chat engagement with career promotions, compounding interest bank accounts, item trading, and 24-hour streak bonuses. Fully isolated vaults prevent unauthorized member robbery.',
-      metrics: [
-        { label: 'Vault Safety', value: '100% Rob-Proof' },
-        { label: 'Daily Interest', value: '+2.4% APR' },
-        { label: 'Streak Bonus', value: '+15% Boost' },
-        { label: 'Ledger Engine', value: 'Zero-Collision' },
-      ],
-      commands: [
-        { command: 's!balance', description: 'View current active wallet and secure bank ledger.' },
-        { command: 's!daily', description: 'Claim 24-hour reward with streak bonus multiplier.' },
-        { command: 's!work', description: 'Clock in for career shift to earn virtual currency.' },
-        { command: 's!deposit [amount|all]', description: 'Safely transfer coins to rob-proof bank vault.' },
-      ],
+      icon: <CoinsIcon className="w-4 h-4" />,
+      title: ab.tabs.economy.title,
+      description: ab.tabs.economy.description,
+      metrics: ab.tabs.economy.metrics,
+      commands: ab.tabs.economy.commands,
       embedPreview: {
         commandTyped: 's!balance',
-        embedTitle: 'Financial Ledger · Synaps Economy',
-        embedSubtitle: 'Account summary for @Máve',
-        fields: [
-          { label: 'Active Wallet', value: '14,850 Coins' },
-          { label: 'Bank Vault', value: '125,000 Coins (Rob-Proof)' },
-          { label: 'Career Rank', value: 'Senior Architect · 14 Day Streak' },
-        ],
-        footer: 'Synaps Economy Core · Daily compounding enabled',
+        embedTitle: ab.tabs.economy.embedTitle,
+        embedSubtitle: ab.tabs.economy.embedSubtitle,
+        fields: ab.tabs.economy.fields,
+        footer: ab.tabs.economy.footer,
       },
     },
     {
       id: 'support',
       label: t.aboutPage.tabs.support,
-      icon: <Ticket className="w-4 h-4" />,
-      tagline: 'Fast Staff Dispatch & Transcripts',
-      title: 'Private Support Ticketing',
-      description:
-        'Single-click private ticket dispatch channels visible only to the requester and assigned support roles. Generates encrypted, permanent HTML transcript archives delivered upon case resolution.',
-      metrics: [
-        { label: 'Dispatch Speed', value: 'Single-Click' },
-        { label: 'Avg Resolution', value: '1.4 Minutes' },
-        { label: 'Transcript Format', value: 'Archival HTML' },
-        { label: 'Permission Isolation', value: 'Strict' },
-      ],
-      commands: [
-        { command: 's!ticket-panel', description: 'Deploy interactive ticket creation buttons in channel.' },
-        { command: 's!ticket [topic]', description: 'Directly dispatch a private support inquiry room.' },
-        { command: 's!close [reason]', description: 'Resolve ticket, export transcript, and archive channel.' },
-        { command: 's!add @user', description: 'Grant a specific team member access to active ticket.' },
-      ],
+      icon: <TicketIcon className="w-4 h-4" />,
+      title: ab.tabs.support.title,
+      description: ab.tabs.support.description,
+      metrics: ab.tabs.support.metrics,
+      commands: ab.tabs.support.commands,
       embedPreview: {
         commandTyped: 's!ticket-panel',
-        embedTitle: 'Community Help Desk · Open Inquiry',
-        embedSubtitle: 'Click below to open an isolated private ticket',
-        fields: [
-          { label: 'Response Guarantee', value: 'Average staff pickup under 2 minutes' },
-          { label: 'Transcript Delivery', value: 'Direct Message archival delivery on close' },
-          { label: 'Privacy', value: 'Hidden from general members' },
-        ],
-        footer: 'Synaps Ticket Dispatch · Secure member desk',
+        embedTitle: ab.tabs.support.embedTitle,
+        embedSubtitle: ab.tabs.support.embedSubtitle,
+        fields: ab.tabs.support.fields,
+        footer: ab.tabs.support.footer,
       },
     },
     {
       id: 'progression',
       label: t.aboutPage.tabs.progression,
-      icon: <Zap className="w-4 h-4" />,
-      tagline: 'Activity Leveling & Vector Cards',
-      title: 'Auto-Roles & Member Ranks',
-      description:
-        'Frictionless onboarding with zero-delay newcomer arrival roles, customizable SVG rank cards, and automated tier promotions as members participate in chat and community events.',
-      metrics: [
-        { label: 'Arrival Role', value: 'Zero-Delay' },
-        { label: 'Rank Card', value: 'Vector SVG' },
-        { label: 'XP Calculations', value: 'Dynamic Curve' },
-        { label: 'Tier Automation', value: 'Auto-Granted' },
-      ],
-      commands: [
-        { command: 's!rank [@user]', description: 'Render high-resolution member level progress card.' },
-        { command: 's!leaderboard', description: 'Display guild top chat contributors and XP rankings.' },
-        { command: 's!autorole set @role', description: 'Assign default arrival role for new server members.' },
-        { command: 's!level-rewards', description: 'Inspect unlockable roles and special perks.' },
-      ],
+      icon: <ZapIcon className="w-4 h-4" />,
+      title: ab.tabs.progression.title,
+      description: ab.tabs.progression.description,
+      metrics: ab.tabs.progression.metrics,
+      commands: ab.tabs.progression.commands,
       embedPreview: {
         commandTyped: 's!rank',
-        embedTitle: 'Rank Card · Máve #25f4',
-        embedSubtitle: 'Guild Rank #1 · Server Legend',
-        fields: [
-          { label: 'Current Level', value: 'Level 42 (8,450 / 10,000 XP)' },
-          { label: 'Messages Sent', value: '14,290 verified contributions' },
-          { label: 'Unlocked Reward', value: 'VIP Tier III + Guild Champion Badge' },
-        ],
-        footer: 'Synaps Leveling System · Live XP synchronization',
+        embedTitle: ab.tabs.progression.embedTitle,
+        embedSubtitle: ab.tabs.progression.embedSubtitle,
+        fields: ab.tabs.progression.fields,
+        footer: ab.tabs.progression.footer,
       },
     },
   ];
 
-  const currentTab = suiteTabs.find((t) => t.id === activeTab) || suiteTabs[0];
+  const currentTab = suiteTabs.find((tab) => tab.id === activeTab) || suiteTabs[0];
 
   const coreValues = [
     {
-      title: t.aboutPage.val1Title || 'Prefix Command Engine (s!)',
-      description:
-        t.aboutPage.val1Desc ||
-        'Fast and dependable prefix execution (s!balance, s!daily, s!work) with zero command latency, clean embed responses, and reliable sub-second gateway feedback.',
+      title: t.aboutPage.val1Title,
+      description: t.aboutPage.val1Desc,
     },
     {
-      title: t.aboutPage.val2Title || 'Sub-Second Execution',
-      description:
-        t.aboutPage.val2Desc ||
-        'Engineered for instant Discord gateway heartbeats so command responses, dice rolls, and moderation actions happen in the blink of an eye.',
+      title: t.aboutPage.val2Title,
+      description: t.aboutPage.val2Desc,
     },
     {
-      title: t.aboutPage.val3Title || '100% Free Core Toolset',
-      description:
-        t.aboutPage.val3Desc ||
-        'Essential moderation commands, support ticketing, banking, and level progression are free for all communities with zero hidden paywalls.',
+      title: t.aboutPage.val3Title,
+      description: t.aboutPage.val3Desc,
     },
     {
-      title: t.aboutPage.val4Title || 'Zero Clutter',
-      description:
-        t.aboutPage.val4Desc ||
-        'Consolidates 5+ bots into a single clean architecture without unnecessary bloat.',
+      title: t.aboutPage.val4Title,
+      description: t.aboutPage.val4Desc,
     },
   ];
 
   return (
     <div className="pt-8 sm:pt-14 pb-24 px-6 sm:px-12 max-w-6xl mx-auto text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
       {/* Page Header */}
-      <div className="text-center max-w-3xl mx-auto mb-14">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="text-center max-w-3xl mx-auto mb-14"
+      >
         <h1 className="text-3xl sm:text-5xl font-extrabold text-neutral-950 dark:text-white tracking-tight leading-tight">
           {t.aboutPage.title}
         </h1>
         <p className="mt-4 text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl mx-auto font-normal">
           {t.aboutPage.subtitle}
         </p>
-      </div>
+      </motion.div>
 
       {/* The Story & Mission Card */}
-      <div className="mb-14 bg-white dark:bg-[#0e0f14] rounded-3xl border border-neutral-200/80 dark:border-white/[0.12] p-6 sm:p-10 shadow-xs relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-14 bg-white dark:bg-[#0c0c0e] rounded-3xl border border-neutral-200/80 dark:border-white/[0.12] p-6 sm:p-10 shadow-xs relative overflow-hidden"
+      >
         <div className="max-w-3xl relative z-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-neutral-950 dark:text-white tracking-tight">
-            {t.aboutPage.storyTitle || 'Why Synaps Was Created'}
+            {t.aboutPage.storyTitle}
           </h2>
           <div className="mt-4 space-y-4 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-            <p>
-              {t.aboutPage.storyP1}
-            </p>
-            <p>
-              {t.aboutPage.storyP2}
-            </p>
+            <p>{t.aboutPage.storyP1}</p>
+            <p>{t.aboutPage.storyP2}</p>
           </div>
         </div>
 
         {/* 3 Quick Bot Highlights */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-8 border-t border-neutral-200/80 dark:border-white/[0.1] relative z-10">
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-neutral-900 dark:text-white" />
-            </div>
-            <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white">
-                {t.aboutPage.highlight1Title || 'Unified Permissions'}
-              </h4>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-                {t.aboutPage.highlight1Desc || 'One bot, one clean role hierarchy in your server settings.'}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-neutral-900 dark:text-white" />
-            </div>
-            <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white">
-                {t.aboutPage.highlight2Title || 'High Reliability'}
-              </h4>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-                {t.aboutPage.highlight2Desc || 'Continuous uptime so your moderation never sleeps.'}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-neutral-900 dark:text-white" />
-            </div>
-            <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white">
-                {t.aboutPage.highlight3Title || 'Community Driven'}
-              </h4>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-                {t.aboutPage.highlight3Desc || 'Features shaped directly by Discord server owner feedback.'}
-              </p>
-            </div>
-          </div>
+          {[
+            { title: t.aboutPage.highlight1Title, desc: t.aboutPage.highlight1Desc },
+            { title: t.aboutPage.highlight2Title, desc: t.aboutPage.highlight2Desc },
+            { title: t.aboutPage.highlight3Title, desc: t.aboutPage.highlight3Desc },
+          ].map((hl, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-start gap-3"
+            >
+              <div className="w-6 h-6 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex items-center justify-center shrink-0 mt-0.5">
+                <CheckCircleIcon className="w-4 h-4 text-neutral-900 dark:text-white" />
+              </div>
+              <div>
+                <h4 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white">
+                  {hl.title}
+                </h4>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                  {hl.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Comprehensive Community Suite: Interactive Tabbed Showcase */}
-      <div className="mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-16"
+      >
         <div className="text-center max-w-2xl mx-auto mb-8">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-950 dark:text-white tracking-tight">
-            Comprehensive Community Suite
+            {ab.suiteTitle}
           </h3>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-2">
-            Explore the four unified modules with categorized commands and live operational metrics
+            {ab.suiteSubtitle}
           </p>
         </div>
 
-        {/* Segmented Tab Navigation Control */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-neutral-100 dark:bg-[#0e0f14] rounded-2xl max-w-2xl mx-auto mb-8 border border-neutral-200 dark:border-white/[0.12]">
+        {/* Segmented Tab Navigation Control with Shared layoutId Pill */}
+        <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-neutral-100 dark:bg-[#0c0c0e] rounded-2xl max-w-2xl mx-auto mb-8 border border-neutral-200 dark:border-white/[0.12]">
           {suiteTabs.map((tab) => {
             const isActive = tab.id === activeTab;
             return (
-              <button
+              <motion.button
                 key={tab.id}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 shadow-xs'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-200/60 dark:hover:bg-white/[0.06]'
+                    ? 'text-white dark:text-neutral-950'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-white/[0.06]'
                 }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="about-suite-pill"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    className="absolute inset-0 rounded-xl bg-neutral-950 dark:bg-white shadow-xs -z-10"
+                  />
+                )}
                 <span>{tab.icon}</span>
                 <span>{tab.label}</span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
-        {/* Tab Content Display (Split Layout) */}
-        <div className="bg-white dark:bg-[#0e0f14] rounded-3xl border border-neutral-200/90 dark:border-white/[0.12] p-6 sm:p-9 shadow-md">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Purpose Narrative, Metrics, and Interactive Commands */}
-            <div className="lg:col-span-7 space-y-6">
-              <div>
-                <h4 className="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white">
-                  {currentTab.title}
-                </h4>
-                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-2.5 leading-relaxed font-normal">
-                  {currentTab.description}
-                </p>
-              </div>
+        {/* Tab Content Display (Split Layout) with AnimatePresence */}
+        <div className="bg-white dark:bg-[#0c0c0e] rounded-3xl border border-neutral-200/90 dark:border-white/[0.12] p-6 sm:p-9 shadow-md overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+            >
+              {/* Left Column: Purpose Narrative, Metrics, and Interactive Commands */}
+              <div className="lg:col-span-7 space-y-6">
+                <div>
+                  <h4 className="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white">
+                    {currentTab.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-2.5 leading-relaxed font-normal">
+                    {currentTab.description}
+                  </p>
+                </div>
 
-              {/* Minimalist Operational Metrics (Unboxed 4-grid) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                {currentTab.metrics.map((metric, i) => (
-                  <div
-                    key={i}
-                    className="p-3 rounded-2xl bg-neutral-50 dark:bg-[#050507] border border-neutral-200/80 dark:border-white/[0.1] text-center sm:text-left"
-                  >
-                    <div className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase">{metric.label}</div>
-                    <div className="text-sm font-bold text-neutral-950 dark:text-white mt-0.5">{metric.value}</div>
-                  </div>
-                ))}
-              </div>
+                {/* Minimalist Operational Metrics (Unboxed 4-grid) */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                  {currentTab.metrics.map((metric, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.22, delay: i * 0.04 }}
+                      className="p-3 rounded-2xl bg-neutral-50 dark:bg-[#141416] border border-neutral-200/80 dark:border-white/[0.1] text-center sm:text-left"
+                    >
+                      <div className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase">{metric.label}</div>
+                      <div className="text-sm font-bold text-neutral-950 dark:text-white mt-0.5">{metric.value}</div>
+                    </motion.div>
+                  ))}
+                </div>
 
               {/* Categorized Command Examples with Click-to-Copy */}
               <div className="space-y-2 pt-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-neutral-900 dark:text-white uppercase font-mono tracking-wider">
-                    Core Module Commands
+                    {ab.coreCommandsLabel}
                   </span>
-                  <span className="text-[11px] text-neutral-400">Click command to copy</span>
+                  <span className="text-[11px] text-neutral-400">{ab.clickToCopy}</span>
                 </div>
 
                 <div className="space-y-2">
                   {currentTab.commands.map((cmd, idx) => (
-                    <div
+                    <motion.div
                       key={idx}
-                      className="p-3 rounded-2xl bg-neutral-50 dark:bg-[#050507] border border-neutral-200/80 dark:border-white/[0.1] flex items-center justify-between gap-3 text-xs"
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      whileHover={{ x: 2 }}
+                      transition={{ duration: 0.22, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                      className="p-3 rounded-2xl bg-neutral-50 dark:bg-[#141416] border border-neutral-200/80 dark:border-white/[0.1] flex items-center justify-between gap-3 text-xs"
                     >
                       <div className="space-y-0.5">
                         <div className="font-mono font-bold text-neutral-950 dark:text-white text-xs">
@@ -362,23 +317,24 @@ export const AboutUs: React.FC = () => {
                           {cmd.description}
                         </div>
                       </div>
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.92 }}
                         onClick={() => handleCopy(cmd.command)}
                         className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 text-[11px] font-medium transition-colors cursor-pointer shadow-2xs shrink-0 flex items-center gap-1.5"
                       >
                         {copiedCmd === cmd.command ? (
                           <>
-                            <Check className="w-3 h-3 text-neutral-900 dark:text-white" />
-                            <span>Copied</span>
+                            <CheckIcon className="w-3 h-3 text-neutral-900 dark:text-white" />
+                            <span>{t.common.copied}</span>
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3 h-3 text-neutral-600 dark:text-neutral-400" />
-                            <span>Copy</span>
+                            <CopyIcon className="w-3 h-3 text-neutral-600 dark:text-neutral-400" />
+                            <span>{t.common.copy}</span>
                           </>
                         )}
-                      </button>
-                    </div>
+                      </motion.button>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -386,7 +342,7 @@ export const AboutUs: React.FC = () => {
 
             {/* Right Column: Discord Embed Response */}
             <div className="lg:col-span-5 space-y-3">
-              <div className="rounded-2xl border border-neutral-200 dark:border-white/[0.1] bg-neutral-50/60 dark:bg-[#050507] p-4 sm:p-5 space-y-3 shadow-inner">
+              <div className="rounded-2xl border border-neutral-200 dark:border-white/[0.1] bg-neutral-50/60 dark:bg-[#141416] p-4 sm:p-5 space-y-3 shadow-inner">
                 {/* User Command Invocation */}
                 <div className="flex items-start gap-2.5 pb-3 border-b border-neutral-200 dark:border-white/[0.08]">
                   <div className="w-7 h-7 rounded-full overflow-hidden bg-neutral-200 dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 shrink-0">
@@ -399,7 +355,7 @@ export const AboutUs: React.FC = () => {
                   <div>
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold text-neutral-950 dark:text-white text-xs">Máve</span>
-                      <span className="text-[10px] text-neutral-400">Today at 1:12 PM</span>
+                      <span className="text-[10px] text-neutral-400">{ab.todayTime}</span>
                     </div>
                     <div className="text-neutral-800 dark:text-neutral-200 font-mono text-xs mt-0.5">
                       {currentTab.embedPreview.commandTyped}
@@ -425,7 +381,7 @@ export const AboutUs: React.FC = () => {
                     </div>
 
                     {/* Discord Embed Box */}
-                    <div className="p-3.5 rounded-xl border-l-4 border-l-neutral-950 dark:border-l-white bg-white dark:bg-[#0e0f14] border border-neutral-200 dark:border-white/[0.1] space-y-2.5 text-xs shadow-2xs">
+                    <div className="p-3.5 rounded-xl border-l-4 border-l-neutral-950 dark:border-l-white bg-white dark:bg-[#0c0c0e] border border-neutral-200 dark:border-white/[0.1] space-y-2.5 text-xs shadow-2xs">
                       <div>
                         <div className="font-bold text-neutral-950 dark:text-white text-xs">
                           {currentTab.embedPreview.embedTitle}
@@ -437,7 +393,7 @@ export const AboutUs: React.FC = () => {
 
                       <div className="space-y-1.5 pt-1 text-[11px]">
                         {currentTab.embedPreview.fields.map((field, idx) => (
-                          <div key={idx} className="p-1.5 rounded-lg bg-neutral-50 dark:bg-black/60 border border-neutral-100 dark:border-white/[0.08]">
+                          <div key={idx} className="p-1.5 rounded-lg bg-neutral-50 dark:bg-[#17171a] border border-neutral-100 dark:border-white/[0.08]">
                             <span className="font-semibold text-neutral-800 dark:text-neutral-300 block text-[10px] uppercase font-mono">
                               {field.label}
                             </span>
@@ -454,49 +410,71 @@ export const AboutUs: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
 
       {/* Why Server Owners Choose Synaps */}
       <div className="mb-16">
-        <div className="text-center max-w-2xl mx-auto mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center max-w-2xl mx-auto mb-8"
+        >
           <h3 className="text-2xl font-bold text-neutral-950 dark:text-white tracking-tight">
-            {t.aboutPage.valuesTitle || 'Built for Discord Owners & Staff'}
+            {t.aboutPage.valuesTitle}
           </h3>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1.5">
-            {t.aboutPage.valuesSubtitle || 'Designed around ease of use, responsiveness, and zero fluff'}
+            {t.aboutPage.valuesSubtitle}
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {coreValues.map((val, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="bg-white dark:bg-[#0e0f14] rounded-2xl border border-neutral-200/80 dark:border-white/[0.12] p-5 shadow-xs"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -3 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.4, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-white dark:bg-[#0c0c0e] rounded-2xl border border-neutral-200/80 dark:border-white/[0.12] p-5 shadow-xs hover:shadow-md transition-shadow"
             >
               <h4 className="text-sm font-bold text-neutral-900 dark:text-white">{val.title}</h4>
               <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">{val.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Elevated Founder Profile Card: Máve (with uploaded avatar image_e0686a18.png & black accents) */}
-      <div className="bg-white dark:bg-[#0e0f14] rounded-3xl border border-neutral-200/90 dark:border-white/[0.12] p-8 sm:p-10 shadow-sm relative overflow-hidden">
+      {/* Elevated Founder Profile Card: Máve */}
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -2 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="bg-white dark:bg-[#0c0c0e] rounded-3xl border border-neutral-200/90 dark:border-white/[0.12] p-8 sm:p-10 shadow-sm hover:shadow-md relative overflow-hidden transition-shadow"
+      >
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
-          {/* Founder Avatar with clean badge */}
-          <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden border-2 border-neutral-200 dark:border-neutral-700 shadow-md shrink-0 bg-neutral-100 dark:bg-neutral-800">
+          {/* Founder Avatar */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+            className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden border-2 border-neutral-200 dark:border-neutral-700 shadow-md shrink-0 bg-neutral-100 dark:bg-neutral-800"
+          >
             <img
               src="/assets/aistudio/image_e0686a18.png"
-              alt="Máve - Founder"
+              alt="Máve"
               className="w-full h-full object-cover"
             />
-            {/* Clean status indicator */}
             <span className="absolute bottom-2.5 right-2.5 flex h-3.5 w-3.5">
               <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-neutral-900 dark:bg-white ring-2 ring-white dark:ring-neutral-900" />
             </span>
-          </div>
+          </motion.div>
 
           {/* Details */}
           <div className="flex-1 text-center md:text-left space-y-3">
@@ -515,7 +493,7 @@ export const AboutUs: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

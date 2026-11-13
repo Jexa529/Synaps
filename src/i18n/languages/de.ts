@@ -192,7 +192,7 @@ export const de: Translations = {
       featuresTitle: 'FUNKTIONEN',
       prefixEngine: 'SYNAPS PREFIX ENGINE',
       instantResponses: 'Sofortige Antworten direkt im Chat.',
-      prefixSub: 'Antworten in Millisekunden ohne Slash-Verzögerung. Auf 1.200+ Servern.',
+      prefixSub: 'Antworten in Millisekunden ohne Slash-Verzögerung.',
       unifiedArch: 'EINHEITLICHE ARCHITEKTUR',
       oneBotRep: 'Ein Bot ersetzt fünf.',
       unifiedSub: 'Moderation, Wirtschaft, Tickets und Leveling in einem Bot synchronisiert.',

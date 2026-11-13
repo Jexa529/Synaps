@@ -192,7 +192,7 @@ export const es: Translations = {
       featuresTitle: 'CARACTERÍSTICAS',
       prefixEngine: 'MOTOR DE PREFIJO SYNAPS',
       instantResponses: 'Respuestas directas al lado del chat.',
-      prefixSub: 'Ejecución subsegundo sin demoras de menús slash. Activo en 1,200+ servidores.',
+      prefixSub: 'Ejecución subsegundo sin demoras de menús slash.',
       unifiedArch: 'ARQUITECTURA UNIFICADA',
       oneBotRep: 'Un bot que sustituye a cinco.',
       unifiedSub: 'Moderación, economía, tickets y niveles sincronizados en un solo lugar.',

@@ -192,7 +192,7 @@ export const ja: Translations = {
       featuresTitle: '機能',
       prefixEngine: 'SYNAPS プレフィックスエンジン',
       instantResponses: 'チャットのすぐ横で、瞬時に応答。',
-      prefixSub: 'メニュー遅延のない即時実行。1,200以上のサーバーで稼働中。',
+      prefixSub: 'メニュー遅延のない即時実行。',
       unifiedArch: '統合アーキテクチャ',
       oneBotRep: '5つのBotを、この1つに。',
       unifiedSub: 'セキュリティ、経済、チケット、レベルシステムを完全同期。',

@@ -192,7 +192,7 @@ export const pt: Translations = {
       featuresTitle: 'RECURSOS',
       prefixEngine: 'MOTOR DE PREFIXO SYNAPS',
       instantResponses: 'Respostas imediatas ao lado do bate-papo.',
-      prefixSub: 'Execução subsegundo sem esperas de menus. Ativo em mais de 1.200 servidores.',
+      prefixSub: 'Execução subsegundo sem esperas de menus.',
       unifiedArch: 'ARQUITETURA UNIFICADA',
       oneBotRep: 'Um único bot que substitui cinco.',
       unifiedSub: 'Moderação, economia, tickets e níveis sincronizados com harmonia.',

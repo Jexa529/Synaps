@@ -192,7 +192,7 @@ export const nl: Translations = {
       featuresTitle: 'FUNCTIES',
       prefixEngine: 'SYNAPS PREFIX-ENGINE',
       instantResponses: 'Directe reacties naast de chat.',
-      prefixSub: 'Reacties in een fractie van een seconde zonder menuvertraging. Actief op 1.200+ servers.',
+      prefixSub: 'Reacties in een fractie van een seconde zonder menuvertraging.',
       unifiedArch: 'GEÏNTEGREERDE ARCHITECTUUR',
       oneBotRep: 'Eén bot die er vijf vervangt.',
       unifiedSub: 'Moderatie, economie, tickets en levels harmonieus in één bot gesynchroniseerd.',

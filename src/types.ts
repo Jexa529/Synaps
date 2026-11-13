@@ -3,12 +3,24 @@ export type TabType =
   | 'about'
   | 'features'
   | 'commands'
+  | 'market'
+  | 'premium'
+  | 'ads'
+  | 'partner'
+  | 'changelog'
+  | 'faq'
+  | 'wiki'
+  | 'status'
+  | 'feedback'
+  | 'docs'
+  | 'api-keys'
   | 'cookie-policy'
   | 'terms-of-service'
   | 'privacy-policy'
   | 'acceptable-use'
   | 'ai-moderation'
-  | 'discord-tos';
+  | 'discord-tos'
+  | 'login';
 
 export type FeatureSubTab = 'moderation' | 'economy' | 'tickets' | 'jobs' | 'market';
 

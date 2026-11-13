@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Cookie, ShieldCheck, EyeOff, Sliders } from 'lucide-react';
+import { ArrowLeftIcon, ShieldCheckIcon, EyeOffIcon, SlidersIcon } from './ui/Icons';
 
 interface CookiePolicyPageProps {
   onBackToHome: () => void;
@@ -14,7 +14,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onBackToHome
           onClick={onBackToHome}
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 px-4 py-2 rounded-full transition-colors cursor-pointer border border-transparent dark:border-neutral-700"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeftIcon className="w-4 h-4" />
           <span>Back to Home</span>
         </button>
       </div>
@@ -36,7 +36,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onBackToHome
       <div className="space-y-8 text-neutral-700 dark:text-neutral-300 text-sm sm:text-[15px] leading-relaxed">
         <section className="bg-white dark:bg-[#111215] p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
           <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-neutral-900 dark:text-white" />
+            <ShieldCheckIcon className="w-5 h-5 text-neutral-900 dark:text-white" />
             1. What Are Cookies and Why We Use Them
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400">
@@ -49,7 +49,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onBackToHome
 
         <section className="bg-white dark:bg-[#111215] p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
           <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
-            <Sliders className="w-5 h-5 text-neutral-900 dark:text-white" />
+            <SlidersIcon className="w-5 h-5 text-neutral-900 dark:text-white" />
             2. Categories of Cookies We Use
           </h2>
           <div className="space-y-4">
@@ -72,7 +72,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ onBackToHome
 
         <section className="bg-white dark:bg-[#111215] p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
           <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
-            <EyeOff className="w-5 h-5 text-neutral-900 dark:text-white" />
+            <EyeOffIcon className="w-5 h-5 text-neutral-900 dark:text-white" />
             3. Zero Third-Party Advertising Trackers
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400">

@@ -192,7 +192,7 @@ export const ko: Translations = {
       featuresTitle: '기능',
       prefixEngine: 'SYNAPS 접두사 엔진',
       instantResponses: '채팅창 옆에서 즉각 반응하는 신속함.',
-      prefixSub: '슬래시 메뉴 딜레이 없는 0.1초 실행. 1,200개 이상의 서버에서 운영 중.',
+      prefixSub: '슬래시 메뉴 딜레이 없는 0.1초 실행.',
       unifiedArch: '단일 통합 아키텍처',
       oneBotRep: '다섯 봇을 대체하는 단 하나의 봇.',
       unifiedSub: '보안, 경제, 티켓, 레벨링이 하나의 봇 안에서 완벽하게 동기화됩니다.',

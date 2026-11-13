@@ -1,21 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { TabType, FeatureSubTab } from './types';
 import { Navbar } from './components/Navbar';
-import { HeroHome } from './components/HeroHome';
-import { AboutUs } from './components/AboutUs';
-import { Features } from './components/Features';
-import { CommandsView } from './components/CommandsView';
-import { LegalPolicyPage, PolicyKey } from './components/LegalPolicyPage';
 import { SupportModal } from './components/SupportModal';
 import { CookieBanner } from './components/CookieBanner';
 import { Footer } from './components/Footer';
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { FeaturesPage } from './pages/FeaturesPage';
+import { CommandsPage } from './pages/CommandsPage';
+import { LegalPage } from './pages/LegalPage';
+import {
+  MarketPage,
+  StatusPage,
+  PremiumPage,
+  AdsPage,
+  FaqPage,
+  ChangelogPage,
+  WikiPage,
+  DocsPage,
+  ApiKeysPage,
+  FeedbackPage,
+  LoginPage,
+  PartnerPage,
+} from './components/PortalPages';
 import { setupDevToolsProtection } from './utils/disableDevTools';
 import { LanguageProvider } from './i18n/translations';
+import { getPathForTab, getTabFromPath } from './routes';
 
 function MainApp() {
-  const [activeTab, setActiveTab] = useState<TabType>('home');
-  const [activeFeatureTab, setActiveFeatureTab] = useState<FeatureSubTab>('moderation');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { tab: activeTab, featureSubTab: activeFeatureTab } = getTabFromPath(location.pathname);
+
   const [isPageTransitioning, setIsPageTransitioning] = useState(false);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isSupportOpen, setIsSupportOpen] = useState(false);
@@ -54,8 +72,10 @@ function MainApp() {
   }, []);
 
   const handleTabChange = (tab: TabType, featureSubTab?: FeatureSubTab) => {
-    const sameTab = tab === activeTab && (!featureSubTab || featureSubTab === activeFeatureTab);
-    if (sameTab) {
+    const targetPath = getPathForTab(tab, featureSubTab);
+    const currentPath = location.pathname.replace(/\/+$/, '') || '/';
+
+    if (targetPath === currentPath) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -66,37 +86,13 @@ function MainApp() {
 
     setIsPageTransitioning(true);
     transitionTimerRef.current = setTimeout(() => {
-      setActiveTab(tab);
-      if (featureSubTab) {
-        setActiveFeatureTab(featureSubTab);
-      }
+      navigate(targetPath);
       window.scrollTo({ top: 0, behavior: 'auto' });
       transitionTimerRef.current = setTimeout(() => {
         setIsPageTransitioning(false);
       }, 180);
     }, 420);
   };
-
-  const getLegalPolicyKey = (tab: TabType): PolicyKey | null => {
-    switch (tab) {
-      case 'terms-of-service':
-        return 'terms';
-      case 'privacy-policy':
-        return 'privacy';
-      case 'acceptable-use':
-        return 'acceptable-use';
-      case 'ai-moderation':
-        return 'ai-moderation';
-      case 'discord-tos':
-        return 'discord-tos';
-      case 'cookie-policy':
-        return 'cookie';
-      default:
-        return null;
-    }
-  };
-
-  const activeLegalKey = getLegalPolicyKey(activeTab);
 
   return (
     <div
@@ -126,55 +122,158 @@ function MainApp() {
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex items-center justify-center"
             >
-              <div className="w-16 h-16 rounded-2xl bg-neutral-950 dark:bg-[#0e0f14] border border-neutral-800 dark:border-white/[0.15] shadow-2xl flex items-center justify-center p-3.5 relative">
+              {/* Subtle Neutral Glow */}
+              <div
+                aria-hidden="true"
+                className="absolute w-24 h-24 rounded-full bg-neutral-400/15 dark:bg-white/[0.06] blur-2xl pointer-events-none"
+              />
+
+              {/* Orbiting Minimal SVG Ring */}
+              <motion.svg
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1.15, ease: 'linear' }}
+                className="w-[88px] h-[88px] pointer-events-none"
+                viewBox="0 0 88 88"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="44"
+                  cy="44"
+                  r="40"
+                  className="stroke-neutral-900/10 dark:stroke-white/10"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M44 4 A 40 40 0 0 1 84 44"
+                  className="stroke-neutral-900 dark:stroke-white"
+                  strokeWidth="2.25"
+                  strokeLinecap="round"
+                />
+              </motion.svg>
+
+              {/* Centered Synaps Bot Logo */}
+              <motion.div
+                animate={{ scale: [0.97, 1.03, 0.97] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+                className="absolute w-14 h-14 rounded-2xl overflow-hidden bg-black border border-neutral-200/80 dark:border-white/20 shadow-2xl flex items-center justify-center"
+              >
                 <img
-                  src="/assets/aistudio/image_ae8bcaf1.png"
+                  src="/assets/aistudio/image_12f5f257.png"
                   alt="Synaps"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
-              </div>
-              <span className="absolute -inset-2 rounded-3xl border-2 border-neutral-900/15 border-t-neutral-900 dark:border-white/10 dark:border-t-white animate-spin pointer-events-none" />
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main Page Content */}
+      {/* Main Routed Page Content with Cinematic Framer Motion Route Transitions */}
       <main
         className={`w-full flex-1 flex flex-col transition-colors duration-200 ${
           isDark ? 'bg-black' : 'bg-[#fbfbfd]'
         }`}
       >
-        {activeTab === 'home' && <HeroHome onTabChange={handleTabChange} />}
-        {activeTab === 'about' && (
-          <div className="flex-1 w-full bg-[#fbfbfd] dark:bg-black">
-            <AboutUs />
-          </div>
-        )}
-        {activeTab === 'features' && (
-          <div className="flex-1 w-full bg-[#fbfbfd] dark:bg-black">
-            <Features initialTab={activeFeatureTab} />
-          </div>
-        )}
-        {activeTab === 'commands' && (
-          <div className="flex-1 w-full bg-[#fbfbfd] dark:bg-black">
-            <CommandsView />
-          </div>
-        )}
-        {activeLegalKey && (
-          <div className="flex-1 w-full bg-[#fbfbfd] dark:bg-black">
-            <LegalPolicyPage
-              currentPolicy={activeLegalKey}
-              onSelectPolicy={handleTabChange}
-              onBackToHome={() => handleTabChange('home')}
-            />
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -12, filter: 'blur(3px)' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full flex-1 flex flex-col"
+          >
+            <Routes location={location}>
+              <Route path="/" element={<HomePage onTabChange={handleTabChange} />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/features" element={<FeaturesPage defaultTab={activeFeatureTab} />} />
+              <Route path="/features/:subTab" element={<FeaturesPage defaultTab={activeFeatureTab} />} />
+              <Route path="/commands" element={<CommandsPage />} />
+              <Route path="/market" element={<MarketPage onTabChange={handleTabChange} />} />
+              <Route path="/premium" element={<PremiumPage onTabChange={handleTabChange} />} />
+              <Route path="/ads" element={<AdsPage />} />
+              <Route path="/reklamlar" element={<AdsPage />} />
+              <Route path="/partner" element={<PartnerPage />} />
+              <Route path="/partnerlik" element={<PartnerPage />} />
+              <Route path="/changelog" element={<ChangelogPage />} />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/wiki" element={<WikiPage />} />
+              <Route path="/status" element={<StatusPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
+              <Route path="/docs" element={<DocsPage onTabChange={handleTabChange} />} />
+              <Route path="/api-anahtarlari" element={<ApiKeysPage />} />
+              <Route path="/api-keys" element={<ApiKeysPage />} />
+              <Route path="/login" element={<LoginPage onTabChange={handleTabChange} />} />
+              <Route
+                path="/terms-of-service"
+                element={
+                  <LegalPage
+                    currentPolicy="terms"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route
+                path="/privacy-policy"
+                element={
+                  <LegalPage
+                    currentPolicy="privacy"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route
+                path="/acceptable-use"
+                element={
+                  <LegalPage
+                    currentPolicy="acceptable-use"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route
+                path="/ai-moderation"
+                element={
+                  <LegalPage
+                    currentPolicy="ai-moderation"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route
+                path="/discord-tos"
+                element={
+                  <LegalPage
+                    currentPolicy="discord-tos"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route
+                path="/cookie-policy"
+                element={
+                  <LegalPage
+                    currentPolicy="cookie"
+                    onSelectPolicy={handleTabChange}
+                    onBackToHome={() => handleTabChange('home')}
+                  />
+                }
+              />
+              <Route path="*" element={<HomePage onTabChange={handleTabChange} />} />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Custom Footer */}
@@ -202,8 +301,12 @@ function MainApp() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <MainApp />
-    </LanguageProvider>
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter>
+        <LanguageProvider>
+          <MainApp />
+        </LanguageProvider>
+      </BrowserRouter>
+    </MotionConfig>
   );
 }
